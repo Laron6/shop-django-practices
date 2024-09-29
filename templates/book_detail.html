@@ -6,15 +6,18 @@
     <title>Информация о книге</title>
 </head>
 <body>
-    <h1>{{ book.title }}</h1>
-    <p>Год издания: {{ book.year }}</p>
-    <p>Автор: {{ book.author.name }}</p>
-    <p>Издатели:
+<div>
+    {% for book in book.all %}
+        <h1>{{ book.title }}</h1>
+        <p>Год издания: {{ book.year }}</p>
+        <p>Автор: {{ book.author.name }}</p>
+        <p>Издатели:
         <ul>
             {% for publisher in book.publisher.all %}
                 <li>{{ publisher.name }}</li>
             {% endfor %}
         </ul>
-    </p>
+    {% endfor %}
+</div>
 </body>
 </html>
