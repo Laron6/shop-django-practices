@@ -1,7 +1,10 @@
+from django.contrib import messages
+from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models
-from shop.forms import ProductForm, SearchForm
+from shop.forms import ProductForm, SearchForm, RegisterForm
 from shop.models import Product
+from django.contrib.auth.decorators import login_required
 
 
 # Главная страница
@@ -21,12 +24,12 @@ def about(request):
 
 
 # Страница с деталями товара
-
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)  # Ищем товар по слагу
     return render(request, 'product_detail.html', {'product': product})
 
 
+@login_required
 # Добавление нового товара
 def add_product(request):
     if request.method == 'POST':
@@ -39,6 +42,7 @@ def add_product(request):
     return render(request, 'add_product.html', {'form': form})
 
 
+@login_required
 # Редактирование товара
 def edit_product(request, slug):
     product = Product.objects.get(slug=slug)
@@ -66,3 +70,30 @@ def products(request):
             )
 
     return render(request, 'products.html', {'products': products_list, 'form': form})
+
+
+# def register(request: HttpRequest):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             user.save()
+#             return redirect('home')
+#     else:
+#         form = RegisterForm()
+#     return render(request, 'register.html', context={
+#         'title': 'Регистрация',
+#         'form': form,
+#     })
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Аккаунт {username} был успешно создан!')
+            return redirect('login')
+    else:
+        form = RegisterForm()
+    return render(request, 'register.html', {'form': form})
