@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from shop.models import Product
+
 
 # Главная страница
 def home(request):
@@ -13,10 +15,5 @@ def about(request):
 
 # Страница товаров
 def products(request):
-    products_list = [
-        {'name': 'Смартфон', 'price': '30 000 руб.'},
-        {'name': 'Наушники', 'price': '5 000 руб.'},
-        {'name': 'Ноутбук', 'price': '70 000 руб.'},
-        {'name': 'Смарт-часы', 'price': '12 000 руб.'},
-    ]
+    products_list = Product.objects.all()  # Получаем все товары из базы данных
     return render(request, 'shop/products.html', {'products': products_list})
