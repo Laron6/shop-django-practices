@@ -17,9 +17,14 @@ nav a {
 .product-list {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .product-card {
+    display: grid;
     background-color: white;
     border: 1px solid #ddd;
     margin: 10px;
@@ -27,6 +32,23 @@ nav a {
     width: 250px;
     text-align: center;
     border-radius: 10px;
+    align-content: space-around;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    justify-items: center;
+
+    .image-name{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+    }
+}
+
+.product-card-about-all{
+    display: inline-flex;
 }
 
 .product-image {

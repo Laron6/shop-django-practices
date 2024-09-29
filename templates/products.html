@@ -1,15 +1,34 @@
 {% extends "base.html" %}
+{% load static %}
+{% block styles %} 
+{#    <link rel="stylesheet" href="{% static 'css/search.pcss' %}"> #}
+{% endblock %}
+
 {% block content %}
-    <h3>Наши товары</h3>
-    <div class="product-list">
+<h3>Наши товары</h3>
+
+<!-- Форма поиска -->
+<form method="get" action="{% url 'products' %}">
+    {{ form.as_p }}  <!-- Отображаем форму поиска -->
+    <button type="submit">Поиск</button>
+</form>
+
+<!-- Результаты поиска -->
+<div class="product-list">
+    {% if products %}
         {% for product in products %}
             <div class="product-card">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
-                <h2>{{ product.name }}</h2>
+                <div class="image-name">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                    <h2>{{ product.name }}</h2>
+                </div>
                 <p>{{ product.price }} руб.</p>
                 <p>{{ product.brand.name }}</p>
                 <a href="{% url 'product_detail' product.slug %}">Подробнее</a>  <!-- Используем слаг -->
             </div>
         {% endfor %}
-    </div>
+    {% else %}
+        <p>Товары не найдены по вашему запросу.</p>
+    {% endif %}
+</div>
 {% endblock %}
