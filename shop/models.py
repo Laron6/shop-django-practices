@@ -26,6 +26,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     image_url = models.URLField(max_length=200, blank=True)  # URL изображения товара
+    image = models.ImageField(upload_to='products/', blank=True, null=True)  # Поле для загрузки изображения
 
     def __str__(self):
         return self.name

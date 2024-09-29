@@ -1,19 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from shop.models import Product
 
 
 # Главная страница
 def home(request):
-    return render(request, 'shop/home.html')
+    return render(request, 'home.html')
 
 
 # Страница "О нас"
 def about(request):
-    return render(request, 'shop/about.html')
+    return render(request, 'about.html')
 
 
 # Страница товаров
 def products(request):
     products_list = Product.objects.all()  # Получаем все товары из базы данных
-    return render(request, 'shop/products.html', {'products': products_list})
+    return render(request, 'products.html', {'products': products_list})
+
+
+# Страница с деталями товара
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, 'product_detail.html', {'product': product})
+

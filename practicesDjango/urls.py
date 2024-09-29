@@ -21,8 +21,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('library/', include('library.urls')),  # подключаем urls приложения library (2 practice)
     path('shop/', include('shop.urls')),  # подключаем urls приложения library (7 practice)
+    path('media/', include('postmedia.urls')),
 ]
 
 if settings.DEBUG:

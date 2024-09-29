@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="product-detail">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+        <p>Цена: {{ product.price }} руб.</p>
+        <p>Бренд: {{ product.brand.name }}</p>
+        <p>Категория: {{ product.category.name }}</p>
+        <p>{{ product.description }}</p>
+    </div>
+{% endblock %}
