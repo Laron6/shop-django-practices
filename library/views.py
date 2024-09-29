@@ -1,11 +1,7 @@
 from django.shortcuts import render
+from .models import Book
 
 
 def book_detail(request):
-    book = {
-        'title': 'Война и мир',
-        'author': 'Лев Толстой',
-        'year': 1869,
-    }
+    book = Book.objects.first()  # Получаем первую книгу из базы данных
     return render(request, 'book_detail.html', {'book': book})
-
