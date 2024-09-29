@@ -20,7 +20,9 @@ def products(request):
 
 
 # Страница с деталями товара
-def product_detail(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
+
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)  # Ищем товар по слагу
     return render(request, 'product_detail.html', {'product': product})
+
 

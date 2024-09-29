@@ -8,7 +8,7 @@
                 <h2>{{ product.name }}</h2>
                 <p>{{ product.price }} руб.</p>
                 <p>{{ product.brand.name }}</p>
-                <a href="{% url 'product_detail' product.id %}">Подробнее</a>  <!-- Ссылка на товар -->
+                <a href="{% url 'product_detail' product.slug %}">Подробнее</a>  <!-- Используем слаг -->
             </div>
         {% endfor %}
     </div>

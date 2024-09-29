@@ -9,7 +9,8 @@ urlpatterns = [
     path('', views.home, name='home'),  # Главная страница
     path('about/', views.about, name='about'),  # Страница "О нас"
     path('products/', views.products, name='products'),  # Страница товаров
-    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    # path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('product/<slug:slug>/', views.product_detail, name='product_detail'),  # Используем слаг
 ]
 
 

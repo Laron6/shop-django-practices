@@ -2,7 +2,7 @@
 /.idea
 /firstproject/privet/__pycache__
 /firstproject/firstproject/__pycache__
-media/products/galaxyBook_FhSVU0a.jpg
-media/products/galaxyS21_L5Vn4bK.jpg
-media/products/macbook_4hFbDvi.jpg
-media/products/iphone_w0mnLWM.jpg
+media/products/galaxyBook_*.jpg
+media/products/galaxyS21_*.jpg
+media/products/macbook_*.jpg
+media/products/iphone_*.jpg

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 # Модель Категория
@@ -27,6 +28,12 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     image_url = models.URLField(max_length=200, blank=True)  # URL изображения товара
     image = models.ImageField(upload_to='products/', blank=True, null=True)  # Поле для загрузки изображения
+    slug = models.SlugField(unique=True, max_length=100)  # Новое поле для слага
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)  # Автоматически генерируем слаг на основе имени
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
