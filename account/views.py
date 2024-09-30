@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.http import HttpRequest
 
-from account.forms import RegisterForm, LoginForm
+from account.forms import RegisterForm, LoginForm, ProfileForm
 from account.models import Profile
 
 
@@ -42,6 +42,18 @@ def login_user(request: HttpRequest):
 @login_required(login_url='login')
 def profile_view(request: HttpRequest):
     user = Profile.objects.select_related('user').get(user=request.user)
-    return render(request, 'profile.html', context={
+    return render(request, 'account/profile.html', context={
         'user': user
     })
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=request.user.profile)
+    return render(request, 'account/edit_profile.html', {'form': form})

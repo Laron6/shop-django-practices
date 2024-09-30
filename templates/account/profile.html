@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h2>Профиль пользователя</h2>
+    </div>
+
+    <div class="profile-info">
+        <p><strong>Логин:</strong> {{ user.user.username }}</p>
+{#        <p><strong>Электронная почта:</strong> {{ user.user.email }}</p>#}
+
+        {% if user.user.profile.bio %}
+            <p><strong>О себе:</strong> {{ user.user.profile.bio }}</p>
+        {% else %}
+            <p><strong>О себе:</strong> Информация отсутствует</p>
+        {% endif %}
+
+        {% if user.user.profile.location %}
+            <p><strong>Местоположение:</strong> {{ user.user.profile.location }}</p>
+        {% else %}
+            <p><strong>Местоположение:</strong> Информация отсутствует</p>
+        {% endif %}
+
+        {% if user.user.profile.birth_date %}
+            <p><strong>Дата рождения:</strong> {{ user.user.profile.birth_date|date:"d.m.Y" }}</p>
+        {% else %}
+            <p><strong>Дата рождения:</strong> Информация отсутствует</p>
+        {% endif %}
+    </div>
+
+    <div class="profile-actions">
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактировать профиль</a>
+    </div>
+</div>
+{% endblock %}

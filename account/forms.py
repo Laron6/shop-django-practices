@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django import forms
 
+from account.models import Profile
+
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
@@ -104,3 +106,38 @@ class LoginForm(AuthenticationForm):
         if not User.objects.filter(username=username):
             raise forms.ValidationError('Такого пользователя не существует', code='invalid')
         return username
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'location', 'birth_date']
+        labels = {
+            'bio': 'О себе',
+            'location': 'Местоположение',
+            'birth_date': 'Дата рождения',
+        }
+        widgets = {
+            'bio': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Напишите о себе...',
+                'rows': 4,
+            }),
+            'location': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите ваше местоположение',
+            }),
+            'birth_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date',
+            }),
+        }
+        error_messages = {
+            'bio': {
+                'max_length': 'О себе не должно превышать 500 символов',
+            },
+            'birth_date': {
+                'invalid': 'Введите правильную дату рождения',
+            },
+        }
+

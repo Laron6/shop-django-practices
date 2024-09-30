@@ -6,3 +6,6 @@ media/products/galaxyBook_*.jpg
 media/products/galaxyS21_*.jpg
 media/products/macbook_*.jpg
 media/products/iphone_*.jpg
+/account/__pycache__
+/shop/__pycache__
+/practicesDjango/__pycache__

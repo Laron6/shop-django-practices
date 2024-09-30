@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Редактировать профиль</h2>
+    <form method="post" class="form-profile">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.bio.label_tag }} <!-- Метка "О себе" -->
+            {{ form.bio }}
+        </div>
+        <div class="form-group">
+            {{ form.location.label_tag }} <!-- Метка "Местоположение" -->
+            {{ form.location }}
+        </div>
+        <div class="form-group">
+            {{ form.birth_date.label_tag }} <!-- Метка "Дата рождения" -->
+            {{ form.birth_date }}
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}
