@@ -117,8 +117,8 @@ USE_I18N = True
 USE_TZ = True
 
 # MWz-pqY-8zX-B86
-LOGIN_REDIRECT_URL = '/shop/products/'  # Или на другую страницу после входа
-LOGOUT_REDIRECT_URL = '/shop/home/'
+LOGIN_REDIRECT_URL = '/shop/home/'  # Или на другую страницу после входа
+LOGOUT_REDIRECT_URL = '/shop/products'
 MIGRATION_MODULES = {
     'account': 'account.migrations',
 }

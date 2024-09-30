@@ -22,7 +22,11 @@
                 <li>
                     {% if user.is_authenticated %}
                         <p>{{ user.username }}</p>
-                        <a href=/account/logout>Выйти</a>
+                        {#                        <a href=/account/logout>Выйти</a>#}
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Выйти</button>
+                        </form>
                     {% else %}
                         <a href="/account/login">Вход</a>
                     {% endif %}
