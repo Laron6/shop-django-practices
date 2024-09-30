@@ -19,12 +19,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 
-from shop import views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls')),  # подключаем urls приложения library (7 practice)
-
+    path('account/', include('account.urls'))
 ]
 
 if settings.DEBUG:

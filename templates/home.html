@@ -1,4 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+    {% if request.user %}
     Главная страница сайта Электроника и гаджеты
+    {% endif %}
 {% endblock %}

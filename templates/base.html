@@ -19,7 +19,14 @@
                 <li><a href="{% url 'home' %}">Главная</a></li>
                 <li><a href="{% url 'about' %}">О нас</a></li>
                 <li><a href="{% url 'products' %}">Товары</a></li>
-                <li><a href="{% url 'login' %}">Вход</a></li> <!-- Можно добавить авторизацию -->
+                <li>
+                    {% if user.is_authenticated %}
+                        <p>{{ user.username }}</p>
+                        <a href={% url 'logout' %}>Выйти</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">Вход</a>
+                    {% endif %}
+                </li>
             </ul>
         </nav>
     </div>

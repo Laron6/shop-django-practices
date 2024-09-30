@@ -43,10 +43,16 @@ body {
     display: flex;
     margin: 0;
     padding: 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 .nav-links li {
     margin-left: 20px;
+    .p{
+        position: absolute;
+    }
 }
 
 .nav-links a {

@@ -1,34 +1,35 @@
 {% extends "base.html" %}
 {% load static %}
-{% block styles %} 
-    <link rel="stylesheet" href="{% static 'css/product.css' %}"> 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
 {% endblock %}
 
 {% block content %}
-<h3>Наши товары</h3>
+    <h3>Наши товары</h3>
 
-<!-- Форма поиска -->
-<form method="get" action="{% url 'products' %}">
-    {{ form.as_p }}  <!-- Отображаем форму поиска -->
-    <button type="submit">Поиск</button>
-</form>
+    <!-- Форма поиска -->
+    <form method="get" action="{% url 'products' %}">
+        {{ form.as_p }}  <!-- Отображаем форму поиска -->
+        <button type="submit">Поиск</button>
+    </form>
 
-<!-- Результаты поиска -->
-<div class="product-list">
-    {% if products %}
-        {% for product in products %}
-            <div class="product-card">
-                <div class="image-name">
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
-                    <h2>{{ product.name }}</h2>
+    <!-- Результаты поиска -->
+        <a href="{% url 'add_product' %}" class="">Добавить товар</a>
+    <div class="product-list">
+        {% if products %}
+            {% for product in products %}
+                <div class="product-card">
+                    <div class="image-name">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                        <h2>{{ product.name }}</h2>
+                    </div>
+                    <p>{{ product.price }} руб.</p>
+                    <p>{{ product.brand.name }}</p>
+                    <a href="{% url 'product_detail' product.slug %}">Подробнее</a>  <!-- Используем слаг -->
                 </div>
-                <p>{{ product.price }} руб.</p>
-                <p>{{ product.brand.name }}</p>
-                <a href="{% url 'product_detail' product.slug %}">Подробнее</a>  <!-- Используем слаг -->
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>Товары не найдены по вашему запросу.</p>
-    {% endif %}
-</div>
+            {% endfor %}
+        {% else %}
+            <p>Товары не найдены по вашему запросу.</p>
+        {% endif %}
+    </div>
 {% endblock %}

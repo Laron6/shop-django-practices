@@ -7,17 +7,12 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),  # Главная страница
+    path('home/', views.home, name='home'),  # Главная страница
     path('about/', views.about, name='about'),  # Страница "О нас"
     path('products/', views.products, name='products'),  # Страница товаров
     path('product/<slug:slug>/', views.product_detail, name='product_detail'),  # Используем слаг
+    path('products/add/', views.add_product, name='add_product'),  # Используем слаг
 
-    # Регистрация
-    path('register/', views.register, name='register'),
-    # Вход в систему
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    # Выход из системы
-    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
 ]
 
 

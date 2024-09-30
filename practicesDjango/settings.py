@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -116,6 +117,9 @@ USE_I18N = True
 USE_TZ = True
 
 # MWz-pqY-8zX-B86
+LOGIN_REDIRECT_URL = '/shop/products/'  # Или на другую страницу после входа
+LOGOUT_REDIRECT_URL = '/shop/home/'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 

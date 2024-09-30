@@ -10,4 +10,11 @@
     <form action="/shop/register/">
         <button type="submit">Регистрация</button>
     </form>
+    
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Ошибка:</strong> Неверное имя пользователя или пароль.
+        </div>
+    {% endif %}
+
 {% endblock %}

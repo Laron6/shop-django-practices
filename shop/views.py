@@ -1,13 +1,12 @@
-from django.contrib import messages
-from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models
-from shop.forms import ProductForm, SearchForm, RegisterForm
+from shop.forms import ProductForm, SearchForm
 from shop.models import Product
 from django.contrib.auth.decorators import login_required
 
 
 # Главная страница
+@login_required # Для проверки авторизации (дальше будет удалено)
 def home(request):
     return render(request, 'home.html')
 
@@ -66,28 +65,4 @@ def products(request):
     return render(request, 'products.html', {'products': products_list, 'form': form})
 
 
-# def register(request: HttpRequest):
-#     if request.method == 'POST':
-#         form = RegisterForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             user.save()
-#             return redirect('home')
-#     else:
-#         form = RegisterForm()
-#     return render(request, 'register.html', context={
-#         'title': 'Регистрация',
-#         'form': form,
-#     })
 
-def register(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Аккаунт {username} был успешно создан!')
-            return redirect('login')
-    else:
-        form = RegisterForm()
-    return render(request, 'register.html', {'form': form})
