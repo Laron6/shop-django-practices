@@ -6,21 +6,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Магазин электроники{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block styles %} {% endblock %}
 </head>
 
 <body>
-    <h1>Добро пожаловать в магазин электроники и гаджетов!</h1>
-    <nav>
-        <a href="{% url 'home' %}">Главная</a> |
-        <a href="{% url 'about' %}">О нас</a> |
-        <a href="{% url 'products' %}">Товары</a>
-    </nav>
-    <p>Здесь вы найдёте новейшую электронику и гаджеты!</p>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="{% url 'home' %}" class="logo">ElectroShop</a>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'products' %}">Товары</a></li>
+                <li><a href="{% url 'login' %}">Вход</a></li> <!-- Можно добавить авторизацию -->
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="container">
+    <div class="block-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
 
-{% block content %}
-    
-{% endblock %}
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Магазин электроники. Все права защищены.</p>
+    </div>
+</footer>
+
+{% block scripts %} {% endblock %}
 </body>
 </html>
