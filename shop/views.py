@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 
 # Главная страница
-@login_required # Для проверки авторизации (дальше будет удалено)
 def home(request):
     return render(request, 'home.html')
 

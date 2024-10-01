@@ -9,3 +9,7 @@ media/products/iphone_*.jpg
 /account/__pycache__
 /shop/__pycache__
 /practicesDjango/__pycache__
+/cart/__pycache__
+/cart/migrations/__pycache__
+/practicesDjango/__pycache__
+/shop/__pycache__
