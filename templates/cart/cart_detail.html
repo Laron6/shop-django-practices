@@ -1,116 +1,113 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block content %}
-<h2>Корзина</h2>
-
-<table id="cart-items-table">
-    <thead>
-        <tr>
-            <th>Товар</th>
-            <th>Количество</th>
-            <th>Цена</th>
-            <th>Удалить</th>
-        </tr>
-    </thead>
-    <tbody id="cart-items">
-        {% for item in cart %}
-        <tr data-product-id="{{ item.product.id }}">
-            <td>{{ item.product.name }}</td>
-            <td>
-                <button class="btn-decrease">-</button>
-                <span class="item-quantity">{{ item.quantity }}</span>
-                <button class="btn-increase">+</button>
-            </td>
-            <td class="item-total">{{ item.total_price }}</td>
-            <td>
-                <a href="#" class="remove-item" data-product-id="{{ item.product.id }}">Удалить</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<p>Общая сумма: <span id="total-price">{{ cart.get_total_price }}</span></p>
-
-<button id="clear-cart" class="btn btn-danger">Очистить корзину</button>
-
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/cart_detail.css' %}">
 {% endblock %}
 
+{% block content %}
+    <div class="cart-container">
+        <h2>Корзина</h2>
+
+        {% if cart %}
+            <table class="cart-table">
+                <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Итого</th>
+                    <th>Действие</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in cart %}
+                    <tr data-product-id="{{ item.product.id }}">
+                        <td class="cart-item-name">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                                 class="cart-item-image">
+                            <span>{{ item.product.name }}</span>
+                        </td>
+                        <td class="cart-item-price">{{ item.product.price }} руб.</td>
+                        <td class="cart-item-quantity">
+                            <button class="btn-decrease">-</button>
+                            <span class="quantity">{{ item.quantity }}</span>
+                            <button class="btn-increase">+</button>
+                        </td>
+                        <td class="cart-item-total">{{ item.total_price }} руб.</td>
+                        <td class="cart-item-action">
+                            <a href="#" class="remove-item" data-product-id="{{ item.product.id }}">Удалить</a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="cart-summary">
+                <p><strong>Общая сумма:</strong> <span id="total-price">{{ cart.get_total_price }} руб.</span></p>
+            </div>
+
+            <div class="cart-actions">
+                <a href="{% url 'cart_clear' %}" class="btn btn-clear">Очистить корзину</a>
+                <a href="{% url 'products' %}" class="btn btn-continue">Продолжить покупки</a>
+                <a href="#" class="btn btn-checkout">Оформить заказ</a>
+            </div>
+
+        {% else %}
+            <p>Ваша корзина пуста.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
 {% block scripts %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-// Увеличение количества товара
-$(document).on('click', '.btn-increase', function() {
-    let productId = $(this).closest('tr').data('product-id');
-    updateQuantity(productId, 1);
-});
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Увеличение и уменьшение количества товара
+        $(document).on('click', '.btn-increase, .btn-decrease', function () {
+            let productId = $(this).closest('tr').data('product-id');
+            let change = $(this).hasClass('btn-increase') ? 1 : -1;
+            updateQuantity(productId, change);
+        });
 
-// Уменьшение количества товара
-$(document).on('click', '.btn-decrease', function() {
-    let productId = $(this).closest('tr').data('product-id');
-    updateQuantity(productId, -1);
-});
-
-// Удаление товара
-$(document).on('click', '.remove-item', function(e) {
-    e.preventDefault();
-    let productId = $(this).data('product-id');
-    removeItem(productId);
-});
-
-// Очистка корзины
-$('#clear-cart').on('click', function() {
-    clearCart();
-});
-
-// Функция обновления количества товара
-function updateQuantity(productId, change) {
-    $.ajax({
-        url: '{% url "cart_update_quantity" %}',
-        method: 'POST',
-        data: {
-            product_id: productId,
-            change: change,
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-        },
-        success: function(response) {
-            // Обновляем количество товара и общую сумму
-            $('tr[data-product-id="' + productId + '"] .item-quantity').text(response.quantity);
-            $('tr[data-product-id="' + productId + '"] .item-total').text(response.item_total_price);
-            $('#total-price').text(response.total_price);
+        function updateQuantity(productId, change) {
+            $.ajax({
+                url: '{% url "cart_update_quantity" %}',
+                method: 'POST',
+                data: {
+                    product_id: productId,
+                    change: change,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success: function (response) {
+                    $('tr[data-product-id="' + productId + '"] .quantity').text(response.quantity);
+                    $('tr[data-product-id="' + productId + '"] .cart-item-total').text(response.item_total_price + " руб.");
+                    $('#total-price').text(response.total_price + " руб.");
+                }
+            });
         }
-    });
-}
 
-// Функция удаления товара
-function removeItem(productId) {
-    $.ajax({
-        url: '{% url "cart_remove" %}',
-        method: 'POST',
-        data: {
-            product_id: productId,
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-        },
-        success: function(response) {
-            $('tr[data-product-id="' + productId + '"]').remove();
-            $('#total-price').text(response.total_price);
-        }
-    });
-}
+        // Удаление товара
+        $(document).on('click', '.remove-item', function (e) {
+            e.preventDefault();
+            let productId = $(this).data('product-id');
+            removeItem(productId);
+        });
 
-// Функция очистки корзины
-function clearCart() {
-    $.ajax({
-        url: '{% url "cart_clear" %}',
-        method: 'POST',
-        data: {
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-        },
-        success: function(response) {
-            $('#cart-items').empty();
-            $('#total-price').text(response.total_price);
+        function removeItem(productId) {
+            $.ajax({
+                url: '{% url "cart_remove" %}',
+                method: 'POST',
+                data: {
+                    product_id: productId,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success: function (response) {
+                    $('tr[data-product-id="' + productId + '"]').remove();
+                    $('#total-price').text(response.total_price + " руб.");
+                }
+            });
         }
-    });
-}
-</script>
+    </script>
 {% endblock %}
