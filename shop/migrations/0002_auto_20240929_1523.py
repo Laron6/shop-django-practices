@@ -21,8 +21,7 @@ def add_initial_data(apps, schema_editor):
         description='Смартфон с процессором A15 Bionic и потрясающей камерой.',
         category=smartphones,
         brand=apple,
-        image_url='https://example.com/iphone13.jpg',
-        image='products/iphone.jpg'
+        image_url='https://example.com/iphone13.jpg'
     )
 
     Product.objects.create(
@@ -31,8 +30,7 @@ def add_initial_data(apps, schema_editor):
         description='Флагманский смартфон с экраном 120Hz и мощной камерой.',
         category=smartphones,
         brand=samsung,
-        image_url='https://example.com/galaxys21.jpg',
-        image='products/galaxyS21.jpg'
+        image_url='https://example.com/galaxys21.jpg'
     )
 
     Product.objects.create(
@@ -41,8 +39,7 @@ def add_initial_data(apps, schema_editor):
         description='Ноутбук с процессором M1 и невероятной производительностью.',
         category=laptops,
         brand=apple,
-        image_url='https://example.com/macbookpro.jpg',
-        image='products/macbook.jpg'
+        image_url='https://example.com/macbookpro.jpg'
     )
 
     Product.objects.create(
@@ -51,8 +48,7 @@ def add_initial_data(apps, schema_editor):
         description='Ультратонкий ноутбук с AMOLED-экраном и длительным временем работы.',
         category=laptops,
         brand=samsung,
-        image_url='https://example.com/galaxybook.jpg',
-        image='products/galaxyBook.jpg'
+        image_url='https://example.com/galaxybook.jpg'
     )
 
 

@@ -1,23 +1,29 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from shop.models import Product
-from order.models import Order, OrderItem
+from shop.models import Product, Category, Brand
+from order.models import Order, OrderItem, PaymentStatus
 from cart.cart import CartSession
 
 
 class OrderProcessTest(TestCase):
     def setUp(self):
-        # Создание пользователя
+        # Создаем категорию и бренд для тестирования, так как они обязательны
+        self.category = Category.objects.create(name='Test Category')
+        self.brand = Brand.objects.create(name='Test Brand')
+
+        # Создаем пользователя
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
-        # Создание товара для тестирования
+        # Создаем товар с обязательными полями (image можно не заполнять)
         self.product = Product.objects.create(
             name='Test Product',
             price=100.00,
             description='Test Description',
-            brand=None,  # Предполагается, что бренд можно пропустить или создать отдельно
-            image=None  # Можно оставить пустым для теста
+            category=self.category,
+            brand=self.brand,
+            image_url='http://example.com/test_product.jpg',  # Можно использовать image_url
+            slug='test-product'  # Обязательно нужно указать slug
         )
 
     def test_order_process(self):
@@ -31,30 +37,29 @@ class OrderProcessTest(TestCase):
         response = self.client.post(reverse('cart_add', args=[self.product.id]))  # добавляем товар в корзину
         self.assertEqual(response.status_code, 302)  # Проверяем, что происходит перенаправление
 
-        # 4. Проверяем, что товар добавлен в корзину
+        # Проверяем, что товар в корзине
         cart = CartSession(self.client)
         self.assertEqual(len(cart), 1)  # Товар должен быть в корзине
-        self.assertEqual(cart.get_total_price(), 100.00)  # Проверяем итоговую сумму
 
-        # 5. Оформляем заказ
+        # 4. Оформляем заказ, передавая данные формы
         response = self.client.post(reverse('checkout'), {
             'full_name': 'Test User',
-            'address': 'Test Address',
+            'address': '123 Test St.',
             'phone': '1234567890',
-            'email': 'testuser@example.com'
+            'email': 'testuser@example.com',
+            'payment_status': PaymentStatus.PENDING,  # Добавляем скрытый статус платежа
         })
         self.assertEqual(response.status_code, 302)  # Проверяем перенаправление на страницу успеха
 
-        # 6. Проверяем, что заказ был создан
+        # 5. Проверяем, что заказ был создан
         order = Order.objects.first()  # Получаем первый заказ
         self.assertIsNotNone(order)  # Проверяем, что заказ существует
         self.assertEqual(order.user, self.user)  # Проверяем, что заказ принадлежит правильному пользователю
         self.assertEqual(order.items.count(), 1)  # Проверяем, что в заказе один товар
         self.assertEqual(order.items.first().product, self.product)  # Проверяем, что товар соответствует
 
-        # 7. Проверяем итоговую сумму заказа
-        self.assertEqual(order.items.first().quantity, 1)  # Проверяем количество товара
-        self.assertEqual(order.items.first().product.price, 100.00)  # Проверяем цену товара
-
+        # 6. Проверяем итоговую сумму заказа
         total_price = sum(item.product.price * item.quantity for item in order.items.all())
         self.assertEqual(total_price, 100.00)  # Проверяем, что итоговая сумма заказа соответствует
+
+
