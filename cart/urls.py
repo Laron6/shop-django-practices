@@ -5,7 +5,11 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path('detail/', views.cart_detail),
+    path('detail/', views.cart_detail, name='cart_detail'),
+    path('update-quantity/', views.cart_update_quantity, name='cart_update_quantity'),
+    path('remove/', views.cart_remove, name='cart_remove'),
+    path('clear/', views.cart_clear, name='cart_clear'),
+    path('add/<int:product_id>/', views.cart_add, name='cart_add'),  # Добавление товара в корзину
 ]
 
 

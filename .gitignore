@@ -13,3 +13,4 @@ media/products/iphone_*.jpg
 /cart/migrations/__pycache__
 /practicesDjango/__pycache__
 /shop/__pycache__
+/.idea
