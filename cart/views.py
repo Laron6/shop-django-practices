@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+
+from order.forms import OrderForm
 from .cart import CartSession
 from shop.models import Product
 
 
 def cart_detail(request):
     cart = CartSession(request)
+    form = OrderForm()
     return render(request,
                   'cart/cart_detail.html',
-                  {'cart': cart})
+                  {'cart': cart, 'form': form})
 
 
 def cart_add(request, product_id):

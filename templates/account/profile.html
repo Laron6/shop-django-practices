@@ -40,7 +40,7 @@
     </div>
 
     <h3>Ваши заказы</h3>
-    {% for order in user.order_set.all %}
+    {% for order in orders %}
         <div class="order">
             <h4>Заказ #{{ order.id }} от {{ order.created_at }}</h4>
             <ul>

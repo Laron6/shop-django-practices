@@ -6,6 +6,7 @@ from django.http import HttpRequest
 
 from account.forms import RegisterForm, LoginForm, ProfileForm
 from account.models import Profile
+from order.models import Order
 
 
 # Create your views here.
@@ -42,8 +43,12 @@ def login_user(request: HttpRequest):
 @login_required(login_url='login')
 def profile_view(request: HttpRequest):
     user = Profile.objects.select_related('user').get(user=request.user)
+
+    # Получаем заказы текущего пользователя
+    orders = Order.objects.filter(user=request.user)  # Извлекаем заказы для текущего пользователя
+
     return render(request, 'account/profile.html', context={
-        'user': user
+        'user': user, 'orders': orders
     })
 
 

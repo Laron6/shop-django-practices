@@ -1,0 +1,96 @@
+/* Стили для модального окна */
+/* Стили для модального окна */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Открывается поверх всей страницы */
+    z-index: 1000; /* Выровнять над другими элементами */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ширина на всю ширину экрана */
+    height: 100%; /* Высота на всю высоту экрана */
+    overflow: auto; /* Добавить прокрутку при необходимости */
+    background-color: rgba(0, 0, 0, 0.5); /* Фон с прозрачностью */
+}
+
+.modal-content {
+    background-color: #fff; /* Фон для содержимого модального окна */
+    margin: 15% auto; /* Центрируем по вертикали и горизонтали */
+    padding: 20px;
+    border: 1px solid #888; /* Граница окна */
+    width: 80%; /* Ширина модального окна */
+    max-width: 600px; /* Максимальная ширина */
+    border-radius: 10px; /* Закругление углов */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Отступ между группами полей */
+}
+
+.form-control {
+    width: 100%; /* Поля на всю ширину */
+    padding: 10px; /* Отступ внутри полей */
+    border: 1px solid #ccc; /* Граница полей */
+    border-radius: 4px; /* Закругление углов полей */
+    box-sizing: border-box; /* Учитываем отступы и границы в общей ширине */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Цвет кнопок при наведении */
+}
+
+/* Стили для вывода ошибок формы */
+.alert-danger {
+    background-color: #f8d7da; /* Цвет фона для ошибок */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb; /* Граница для ошибок */
+    border-radius: 4px; /* Закругление углов */
+    color: #721c24; /* Цвет текста для ошибок */
+}
+
+
+
+.checkout-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
