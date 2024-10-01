@@ -19,6 +19,7 @@ def checkout(request):
             for item in cart:
                 print(f"Добавление {item['quantity']} x {item['product'].name} в заказ")
                 OrderItem.objects.create(order=order, product=item['product'], quantity=item['quantity'])
+            form.save()
             print(f"Создан заказ с ID: {order.id}")
             print(f"Итоговая сумма: ", cart.get_total_price())
             cart.clear()  # Очищаем корзину после оформления заказа

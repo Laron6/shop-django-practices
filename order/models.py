@@ -16,6 +16,10 @@ class Order(models.Model):
     is_completed = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)  # Поле для статуса оплаты
     payment_status = models.CharField(max_length=3, choices=PaymentStatus.choices, default=PaymentStatus.PENDING)
+    user_email = models.EmailField(null=True, blank=True)
+    user_phone = models.CharField(max_length=11, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    full_name = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return f"Заказ #{self.id} пользователя {self.user.username}"
