@@ -6,13 +6,11 @@ from shop import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('home/', views.home, name='home'),  # Главная страница
     path('about/', views.about, name='about'),  # Страница "О нас"
     path('products/', views.products, name='products'),  # Страница товаров
     path('product/<slug:slug>/', views.product_detail, name='product_detail'),  # Используем слаг
     path('products/add/', views.add_product, name='add_product'),  # Используем слаг
-
 ]
 
 

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/cart_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    
+    <h3>Ваши заказы</h3>
+    {% for order in user.order_set.all %}
+        <div class="order">
+            <h4>Заказ #{{ order.id }} от {{ order.created_at }}</h4>
+            <ul>
+                {% for item in order.items.all %}
+                    <li>{{ item.quantity }} x {{ item.product.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <p>У вас нет заказов.</p>
+    {% endfor %}
+    
+{% endblock %}

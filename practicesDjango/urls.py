@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls')),  # подключаем urls приложения library (7 practice)
     path('account/', include('account.urls')),
-    path('cart/', include('cart.urls'))
+    path('cart/', include('cart.urls')),
+    path('order/', include('order.urls')),
 ]
 
 if settings.DEBUG:

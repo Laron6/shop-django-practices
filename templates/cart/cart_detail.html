@@ -51,7 +51,13 @@
             <div class="cart-actions">
                 <a href="{% url 'cart_clear' %}" class="btn btn-clear">Очистить корзину</a>
                 <a href="{% url 'products' %}" class="btn btn-continue">Продолжить покупки</a>
-                <a href="#" class="btn btn-checkout">Оформить заказ</a>
+                <form method="post" action="{% url 'checkout' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-checkout">Оформить заказ</button>
+                </form>
+                <a href="{% url 'checkout' %}" class="btn btn-checkout">Оформить заказ</a>
+                <!-- Кнопка для оформления заказа -->
             </div>
 
         {% else %}

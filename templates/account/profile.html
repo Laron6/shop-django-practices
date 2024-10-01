@@ -38,5 +38,19 @@
     <div class="profile-actions">
         <a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактировать профиль</a>
     </div>
+
+    <h3>Ваши заказы</h3>
+    {% for order in user.order_set.all %}
+        <div class="order">
+            <h4>Заказ #{{ order.id }} от {{ order.created_at }}</h4>
+            <ul>
+                {% for item in order.items.all %}
+                    <li>{{ item.quantity }} x {{ item.product.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <p>У вас нет заказов.</p>
+    {% endfor %}
 </div>
 {% endblock %}
