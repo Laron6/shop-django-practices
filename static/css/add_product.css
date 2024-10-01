@@ -1,0 +1,65 @@
+.add-product-container {
+    max-width: 600px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    padding: 20px; /* Отступы вокруг контейнера */
+    background-color: #f9f9f9; /* Фон контейнера */
+    border-radius: 8px; /* Закругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+h3 {
+    text-align: center; /* Центрируем заголовок */
+    color: #333; /* Цвет заголовка */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Отступ между группами полей */
+}
+
+.form-group input {
+    display: block;
+    width: fit-content;
+    height: max-content;
+    padding: 10px;
+    font-size: large;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.form-group label {
+    display: block; /* Метки на отдельной строке */
+    font-weight: bold; /* Жирный шрифт для меток */
+    margin-bottom: 5px; /* Отступ под метками */
+}
+
+.form-control {
+    width: 100%; /* Поля на всю ширину */
+    padding: 10px; /* Отступы внутри полей */
+    border: 1px solid #ccc; /* Граница полей */
+    border-radius: 4px; /* Закругление углов полей */
+    box-sizing: border-box; /* Учитываем отступы и границы в общей ширине */
+}
+
+.btn {
+    display: inline-block; /* Кнопка отображается как строчный элемент */
+    padding: 10px 20px; /* Отступы для кнопок */
+    background-color: #007bff; /* Цвет кнопок */
+    color: white; /* Цвет текста */
+    border: none; /* Без границ */
+    border-radius: 4px; /* Закругление углов кнопок */
+    cursor: pointer; /* Курсор указателя */
+    text-align: center; /* Центрируем текст в кнопке */
+    margin-top: 15px; /* Отступ сверху для кнопки */
+    width: 100%; /* Кнопка на всю ширину */
+    transition: background-color 0.3s ease; /* Плавный переход цвета кнопки */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+
+.error-message {
+    color: #d9534f; /* Цвет сообщений об ошибках */
+    font-size: 0.9em; /* Размер шрифта для ошибок */
+}
