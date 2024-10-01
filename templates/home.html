@@ -1,6 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if request.user %}
-    Главная страница сайта Электроника и гаджеты
-    {% endif %}
+
+    <h1>Главная страница сайта Электроника и гаджеты</h1>
+    <section class="benefits">
+        <h2>Почему выбирают нас?</h2>
+        <div class="benefit-list">
+            <div class="benefit-item">
+                <i class="icon-fast-delivery"></i>
+                <h3>Быстрая доставка</h3>
+                <p>Доставка товаров в течение 2-3 дней.</p>
+            </div>
+            <div class="benefit-item">
+                <i class="icon-guarantee"></i>
+                <h3>Гарантия 1 год</h3>
+                <p>На все товары распространяется официальная гарантия.</p>
+            </div>
+            <div class="benefit-item">
+                <i class="icon-support"></i>
+                <h3>Круглосуточная поддержка</h3>
+                <p>Мы всегда на связи, чтобы помочь вам с любыми вопросами.</p>
+            </div>
+        </div>
+    </section>
+
+
 {% endblock %}

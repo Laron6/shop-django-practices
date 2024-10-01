@@ -46,9 +46,11 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    min-width: fit-content;
 }
 
 .nav-links li {
+    min-width: fit-content;
     margin-left: 20px;
     .p{
         position: absolute;
@@ -56,6 +58,7 @@ body {
 }
 
 .nav-links a {
+    min-width: fit-content;
     text-decoration: none;
     color: #000;
     font-size: 1em;
@@ -95,6 +98,7 @@ main {
     }
 
     .nav-links li {
+        min-width: fit-content;
         margin-left: 0;
         margin-top: 10px;
     }

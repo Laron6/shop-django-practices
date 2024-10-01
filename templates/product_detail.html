@@ -1,10 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
     <h3>{{ product.name }}</h3>
-    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
-    <p>Цена: {{ product.price }} руб.</p>
-    <p>Категория: {{ product.category.name }}</p>
-    <p>Бренд: {{ product.brand.name }}</p>
-    <p>{{ product.description }}</p>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image"
+         style="height: 20rem;width: fit-content;">
+    <div style="display: flex; flex-direction: column;">
+        <h4>Цена
+            <p>{{ product.price }} руб.</p>
+        </h4>
+        <div>
+            <h4>Категория: </h4>
+            <p> {{ product.category.name }}</p>
+        </div>
+        <div>
+            <h4>Бренд: </h4>
+            <p>{{ product.brand.name }}</p>
+        </div>
+        <p>{{ product.description }}</p>
+    </div>
 {% endblock %}

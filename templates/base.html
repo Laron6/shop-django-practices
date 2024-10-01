@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Магазин электроники{% endblock %}</title>
     {#    {% compress css %}#}
-    <link rel="preload" href="{% static 'css/base.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" as="style">
     {% block styles %} {% endblock %}
     {#    {% endcompress %}#}
 </head>
@@ -21,18 +21,17 @@
                 <li><a href="{% url 'home' %}">Главная</a></li>
                 <li><a href="{% url 'about' %}">О нас</a></li>
                 <li><a href="{% url 'products' %}">Товары</a></li>
-                <li>
-                    {% if user.is_authenticated %}
-                        <p>{{ user.username }}</p>
-                        {#                        <a href=/account/logout>Выйти</a>#}
-                        <form method="post" action="{% url 'logout' %}">
-                            {% csrf_token %}
-                            <button type="submit">Выйти</button>
-                        </form>
-                    {% else %}
-                        <a href="/account/login">Вход</a>
-                    {% endif %}
-                </li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Профиль</a></li>
+                    <li><a href="{% url 'cart_detail' %}">Корзина</a></li>
+                    <li><p>{{ user.username }}</p></li>
+                    <form method="post" action="{% url 'logout' %}" style="margin: 1%">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-clear" style="padding: 5px">Выйти</button>
+                    </form>
+                {% else %}
+                    <li><a href="/account/login">Вход</a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>
